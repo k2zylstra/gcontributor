@@ -1,1 +1,0 @@
-type CommitDict = Dict[str, int]
