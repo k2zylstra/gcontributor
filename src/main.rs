@@ -1,4 +1,5 @@
-
+//! Testing this ichiban
+//! 
 mod committer;
 mod converter;
 mod data_access;
@@ -68,7 +69,7 @@ impl FlowControl {
 fn main() {
     let com: Committer = Committer::new("Test2".to_string());
     let conv: Converter = Default::default();
-    let da: DataAccessor = DataAccessor::new("Test".to_string());
+    let da: DataAccessor = DataAccessor::new().unwrap();
     let fc: FlowControl = FlowControl::new(conv, com, da);
     fc.run();
     println!("Hello, world!");
