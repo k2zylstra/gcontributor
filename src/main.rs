@@ -1,5 +1,6 @@
-//! Testing this ichiban
+//! Handling the Flow control of the program in deciding when something needs to be commited to the database
 //! 
+
 mod committer;
 mod converter;
 mod data_access;
