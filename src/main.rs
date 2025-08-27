@@ -2,6 +2,9 @@
 //! 
 mod committer;
 mod converter;
+mod converters {
+    pub mod jpeg_converter;
+}
 mod data_access;
 
 use chrono::{Local, NaiveTime, TimeZone};
@@ -10,15 +13,17 @@ use committer::*;
 use converter::*;
 use data_access::*;
 
-pub struct FlowControl {
-    converter: Converter,
+use crate::converters::jpeg_converter::JpegConverter;
+
+pub struct FlowControl<C: Converter> {
+    converter: C,
     committer: Committer,
     data_accessor: DataAccessor,
     schedule_time: String,
 }
 
-impl FlowControl {
-    pub fn new(converter: Converter, committer:Committer, data_accessor:DataAccessor) -> Self {
+impl<C: Converter> FlowControl<C> {
+    pub fn new(converter: C, committer:Committer, data_accessor:DataAccessor) -> Self {
         FlowControl {
             committer,
             converter,
@@ -68,7 +73,8 @@ impl FlowControl {
 
 fn main() {
     let com: Committer = Committer::new("Test2".to_string());
-    let conv: Converter = Default::default();
+    let conv = JpegConverter::new();
+    conv.convert();
     let da: DataAccessor = DataAccessor::new().unwrap();
     let fc: FlowControl = FlowControl::new(conv, com, da);
     fc.run();

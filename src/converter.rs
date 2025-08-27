@@ -1,4 +1,4 @@
-#[derive(Default)]
-pub struct Converter {
-    test: u8,
+
+pub trait Converter {
+    fn convert(&self) -> &'static str;
 }
